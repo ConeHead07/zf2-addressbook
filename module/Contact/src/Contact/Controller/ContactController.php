@@ -30,9 +30,11 @@ class ContactController extends ActionController
         if ($request->isPost()) {
             $formData = $request->post()->toArray();
             if ($form->isValid($formData)) {
-                $artist = $form->getValue('artist');
-                $title  = $form->getValue('title');
-                $this->contactTable->addContact($artist, $title);
+                $forename = $form->getValue('forename');
+                $surname  = $form->getValue('surname');
+                $nickname  = $form->getValue('nickname');
+                $category  = $form->getValue('category');
+                $this->contactTable->addContact($forename, $surname, $nickname, $category);
 
                 // Redirect to list of contacts
                 return $this->redirect()->toRoute('default', array(
@@ -57,11 +59,13 @@ class ContactController extends ActionController
             $formData = $request->post()->toArray();
             if ($form->isValid($formData)) {
                 $id     = $form->getValue('id');
-                $artist = $form->getValue('artist');
-                $title  = $form->getValue('title');
+                $forename = $form->getValue('forename');
+                $surname  = $form->getValue('surname');
+                $nickname  = $form->getValue('nickname');
+                $category  = $form->getValue('category');
                 
                 if ($this->contactTable->getContact($id)) {
-                    $this->contactTable->updateContact($id, $artist, $title);
+                    $this->contactTable->updateContact($id, $forename, $surname, $nickname, $category);
                 }
 
                 // Redirect to list of contacts

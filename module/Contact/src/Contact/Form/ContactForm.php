@@ -13,15 +13,27 @@ class ContactForm extends Form
         $id = new Element\Hidden('id');
         $id->addFilter('Int');
 
-        $artist = new Element\Text('artist');
-        $artist->setLabel('Artist')
+        $forename = new Element\Text('forename');
+        $forename->setLabel('Forename')
                ->setRequired(true)
                ->addFilter('StripTags')
                ->addFilter('StringTrim')
                ->addValidator('NotEmpty');
 
-        $title = new Element\Text('title');
-        $title->setLabel('Title')
+        $surname = new Element\Text('surname');
+        $surname->setLabel('Surname')
+              ->setRequired(true)
+              ->addFilter('StripTags')
+              ->addFilter('StringTrim')
+              ->addValidator('NotEmpty');
+
+        $nickname = new Element\Text('nickname');
+        $nickname->setLabel('Nickname')
+              ->addFilter('StripTags')
+              ->addFilter('StringTrim');
+
+        $category = new Element\Text('category');
+        $category->setLabel('Category')
               ->setRequired(true)
               ->addFilter('StripTags')
               ->addFilter('StringTrim')
@@ -30,6 +42,6 @@ class ContactForm extends Form
         $submit = new Element\Submit('submit');
         $submit->setAttrib('id', 'submitbutton');
 
-        $this->addElements(array($id, $artist, $title, $submit));
+        $this->addElements(array($id, $forename, $surname, $nickname, $category, $submit));
     }
 }

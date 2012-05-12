@@ -8,14 +8,18 @@ $this->headTitle($title);
 
 <table class="table">
 <tr>
-    <th>Title</th>
-    <th>Artist</th>
+    <th>Forname</th>
+    <th>Surname</th>
+    <th>Nickname</th>
+    <th>Category</th>
     <th>&nbsp;</th>
 </tr>
 <?php foreach($contacts as $contact) : ?>
 <tr>
-    <td><?php echo $this->escape($contact->title);?></td>
-    <td><?php echo $this->escape($contact->artist);?></td>
+    <td><?php echo $this->escape($contact->forename);?></td>
+    <td><?php echo $this->escape($contact->surname);?></td>
+    <td><?php echo $this->escape($contact->nickname);?></td>
+    <td><?php echo $this->escape($contact->category);?></td>
     <td>
         <a href="<?php echo $this->url('default',
             array('controller'=>'contact','action'=>'edit')) 

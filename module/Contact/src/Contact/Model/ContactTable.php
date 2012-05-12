@@ -32,20 +32,24 @@ class ContactTable extends TableGateway
         return $row;
     }
 
-    public function addContact($artist, $title)
+    public function addContact($forename, $surname, $nickname, $category)
     {
         $data = array(
-            'artist' => $artist,
-            'title'  => $title,
+            'forename' => $forename,
+            'surname'  => $surname,
+            'nickname'  => $nickname,
+            'category'  => $category,
         );
         $this->insert($data);
     }
 
-    public function updateContact($id, $artist, $title)
+    public function updateContact($id, $forename, $surname, $nickname, $category)
     {
         $data = array(
-            'artist' => $artist,
-            'title'  => $title,
+            'forename' => $forename,
+            'surname'  => $surname,
+            'nickname'  => $nickname,
+            'category'  => $category,
         );
         $this->update($data, array('id' => $id));
     }
