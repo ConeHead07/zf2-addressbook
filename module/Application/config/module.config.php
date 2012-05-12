@@ -42,7 +42,7 @@ return array(
                             'options' => array(
                                 'route'    => '/',
                                 'defaults' => array(
-                                    'controller' => 'Album\Controller\AlbumController',
+                                    'controller' => 'Contact\Controller\ContactController',
                                     'action'     => 'index',
                                 ),
                             ),
