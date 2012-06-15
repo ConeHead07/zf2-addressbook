@@ -2,17 +2,21 @@
 
 namespace Contact\Model;
 
-use Zend\Db\TableGateway\TableGateway,
+use Zend\Db\TableGateway\AbstractTableGateway,
     Zend\Db\Adapter\Adapter,
     Zend\Db\ResultSet\ResultSet;
 
-class ContactTable extends TableGateway
+class ContactTable extends AbstractTableGateway
 {
-    public function __construct(Adapter $adapter = null, $databaseSchema = null, 
-        ResultSet $selectResultPrototype = null)
+    protected $table ='contact';
+    protected $tableName ='contact';
+
+    public function __construct(Adapter $adapter)
     {
-        return parent::__construct('contact', $adapter, $databaseSchema, 
-            $selectResultPrototype);
+        $this->adapter = $adapter;
+        $this->resultSetPrototype = new ResultSet(new Contact);
+
+        $this->initialize();
     }
 
     public function fetchAll()
@@ -32,24 +36,39 @@ class ContactTable extends TableGateway
         return $row;
     }
 
-    public function addContact($forename, $surname, $nickname, $category)
+    public function saveContact(Contact $contact)
     {
         $data = array(
-            'forename' => $forename,
-            'surname'  => $surname,
-            'nickname'  => $nickname,
-            'category'  => $category,
+            'artist' => $contact->artist,
+            'title'  => $contact->title,
+        );
+
+        $id = (int)$contact->id;
+        if ($id == 0) {
+            $this->insert($data);
+        } else {
+            if ($this->getContact($id)) {
+                $this->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('Form id does not exit');
+            }
+        }
+    }
+
+    public function addContact($artist, $title)
+    {
+        $data = array(
+            'artist' => $artist,
+            'title'  => $title,
         );
         $this->insert($data);
     }
 
-    public function updateContact($id, $forename, $surname, $nickname, $category)
+    public function updateContact($id, $artist, $title)
     {
         $data = array(
-            'forename' => $forename,
-            'surname'  => $surname,
-            'nickname'  => $nickname,
-            'category'  => $category,
+            'artist' => $artist,
+            'title'  => $title,
         );
         $this->update($data, array('id' => $id));
     }

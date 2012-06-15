@@ -1,0 +1,27 @@
+<?php 
+$title = 'My contacts';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escape($title); ?></h1>
+<p><a href="<?php echo $this->url('contact', array('action'=>'add'));?>">
+    Add new contact</a></p>
+
+<table class="table">
+<tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach($contacts as $contact) : ?>
+<tr>
+    <td><?php echo $this->escape($contact->title);?></td>
+    <td><?php echo $this->escape($contact->artist);?></td>
+    <td>
+        <a href="<?php echo $this->url('contact',
+            array('action'=>'edit', 'id' => $contact->id));?>">Edit</a>
+        <a href="<?php echo $this->url('contact',
+            array('action'=>'delete', 'id' => $contact->id));?>">Delete</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

@@ -2,9 +2,10 @@
 
 namespace Contact;
 
-use Zend\Module\Consumer\AutoloaderProvider;
+use Zend\Form\View\HelperLoader as FormHelperLoader;
+use Contact\Model\ContactTable;
 
-class Module implements AutoloaderProvider
+class Module
 {
     public function getAutoloaderConfig()
     {
@@ -24,4 +25,18 @@ class Module implements AutoloaderProvider
     {
         return include __DIR__ . '/config/module.config.php';
     }
+
+    public function getServiceConfiguration()
+    {
+        return array(
+            'factories' => array(
+                'contact-table' =>  function($sm) {
+                    $dbAdapter = $sm->get('db-adapter');
+                    $table = new ContactTable($dbAdapter);
+                    return $table;
+                },
+            ),
+        );
+    }
+
 }

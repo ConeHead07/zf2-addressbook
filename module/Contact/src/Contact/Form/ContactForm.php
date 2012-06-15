@@ -1,47 +1,50 @@
 <?php
 namespace Contact\Form;
 
-use Zend\Form\Form,
-    Zend\Form\Element;
+use Zend\Form\Form;
 
 class ContactForm extends Form
 {
-    public function init()
+    public function __construct()
     {
+        parent::__construct();
+
         $this->setName('contact');
+        $this->setAttribute('method', 'post');
 
-        $id = new Element\Hidden('id');
-        $id->addFilter('Int');
+        // Id
+        $this->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
 
-        $forename = new Element\Text('forename');
-        $forename->setLabel('Forename')
-               ->setRequired(true)
-               ->addFilter('StripTags')
-               ->addFilter('StringTrim')
-               ->addValidator('NotEmpty');
+        // Artist        
+        $this->add(array(
+            'name' => 'artist',
+            'attributes' => array(
+                'type'  => 'text',
+                'label' => 'Artist',
+            ),
+        ));
 
-        $surname = new Element\Text('surname');
-        $surname->setLabel('Surname')
-              ->setRequired(true)
-              ->addFilter('StripTags')
-              ->addFilter('StringTrim')
-              ->addValidator('NotEmpty');
+        $this->add(array(
+            'name' => 'title',
+            'attributes' => array(
+                'type'  => 'text',
+                'label' => 'Title',
+            ),
+        ));
 
-        $nickname = new Element\Text('nickname');
-        $nickname->setLabel('Nickname')
-              ->addFilter('StripTags')
-              ->addFilter('StringTrim');
+        $this->add(array(
+            'name' => 'submit',
+            'attributes' => array(
+                'type'  => 'submit',
+                'value' => 'Go',
+                'id' => 'submitbutton',
+            ),
+        ));
 
-        $category = new Element\Text('category');
-        $category->setLabel('Category')
-              ->setRequired(true)
-              ->addFilter('StripTags')
-              ->addFilter('StringTrim')
-              ->addValidator('NotEmpty');
-
-        $submit = new Element\Submit('submit');
-        $submit->setAttrib('id', 'submitbutton');
-
-        $this->addElements(array($id, $forename, $surname, $nickname, $category, $submit));
     }
 }
