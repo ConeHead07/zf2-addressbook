@@ -13,15 +13,15 @@ echo $this->form()->openTag($form);
 ?>
 <dl class="zend_form">
 <?php echo $this->formInput($form->get('id')); ?>
-<dt><?php echo $this->formLabel($form->get('title')); ?></dt>
+<dt><?php echo $this->formLabel($form->get('forename')); ?></dt>
 <dd><?php 
-    echo $this->formInput($form->get('title'));
-    echo $this->formElementErrors($form->get('title'));
+    echo $this->formInput($form->get('forename'));
+    echo $this->formElementErrors($form->get('forename'));
 ?></dd>
-<dt><?php echo $this->formLabel($form->get('artist')); ?></dt>
+<dt><?php echo $this->formLabel($form->get('surname')); ?></dt>
 <dd><?php 
-    echo $this->formInput($form->get('artist'));
-    echo $this->formElementErrors($form->get('artist'));
+    echo $this->formInput($form->get('surname'));
+    echo $this->formElementErrors($form->get('surname'));
 ?></dd>
 
 <dd><?php 

@@ -20,20 +20,20 @@ class ContactForm extends Form
             ),
         ));
 
-        // Artist        
+        // Surname        
         $this->add(array(
-            'name' => 'artist',
+            'name' => 'surname',
             'attributes' => array(
                 'type'  => 'text',
-                'label' => 'Artist',
+                'label' => 'Surname',
             ),
         ));
 
         $this->add(array(
-            'name' => 'title',
+            'name' => 'forename',
             'attributes' => array(
                 'type'  => 'text',
-                'label' => 'Title',
+                'label' => 'Forename',
             ),
         ));
 

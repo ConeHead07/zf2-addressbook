@@ -34,7 +34,7 @@ class Contact extends Row implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'artist',
+                'name'     => 'surname',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -53,7 +53,7 @@ class Contact extends Row implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'title',
+                'name'     => 'forename',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),

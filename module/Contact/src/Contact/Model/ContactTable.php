@@ -39,8 +39,8 @@ class ContactTable extends AbstractTableGateway
     public function saveContact(Contact $contact)
     {
         $data = array(
-            'artist' => $contact->artist,
-            'title'  => $contact->title,
+            'surname' => $contact->surname,
+            'forename'  => $contact->forename,
         );
 
         $id = (int)$contact->id;
@@ -55,20 +55,20 @@ class ContactTable extends AbstractTableGateway
         }
     }
 
-    public function addContact($artist, $title)
+    public function addContact($surname, $forename)
     {
         $data = array(
-            'artist' => $artist,
-            'title'  => $title,
+            'surname' => $surname,
+            'forename'  => $forename,
         );
         $this->insert($data);
     }
 
-    public function updateContact($id, $artist, $title)
+    public function updateContact($id, $surname, $forename)
     {
         $data = array(
-            'artist' => $artist,
-            'title'  => $title,
+            'surname' => $surname,
+            'forename'  => $forename,
         );
         $this->update($data, array('id' => $id));
     }
