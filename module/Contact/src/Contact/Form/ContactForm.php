@@ -11,8 +11,6 @@ class ContactForm extends Form
 
         $this->setName('contact');
         $this->setAttribute('method', 'post');
-
-        // Id
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -20,20 +18,43 @@ class ContactForm extends Form
             ),
         ));
 
-        // Surname        
+        $this->add(array(
+            'name' => 'forename',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+            'options' => array(
+                'label' => 'Forename',
+            ),
+        ));
+
         $this->add(array(
             'name' => 'surname',
             'attributes' => array(
                 'type'  => 'text',
+            ),
+            'options' => array(
                 'label' => 'Surname',
             ),
         ));
 
         $this->add(array(
-            'name' => 'forename',
+            'name' => 'nickname',
             'attributes' => array(
                 'type'  => 'text',
-                'label' => 'Forename',
+            ),
+            'options' => array(
+                'label' => 'Nickname',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'category',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+            'options' => array(
+                'label' => 'Category',
             ),
         ));
 

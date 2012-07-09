@@ -2,17 +2,13 @@
 
 namespace Contact\Controller;
 
-use Zend\Mvc\Controller\ActionController,
-    Zend\View\Model\ViewModel,
-    Contact\Model\ContactTable,
-    Contact\Model\Contact,
-    Contact\Form\ContactForm;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Contact\Model\Contact;
+use Contact\Form\ContactForm;
 
-class ContactController extends ActionController
+class ContactController extends AbstractActionController
 {
-    /**
-     * @var \Contact\Model\ContactTable
-     */
     protected $contactTable;
 
     public function indexAction()
@@ -31,15 +27,13 @@ class ContactController extends ActionController
         if ($request->isPost()) {
             $contact = new Contact();
             $form->setInputFilter($contact->getInputFilter());
-            $form->setData($request->post());
+            $form->setData($request->getPost());
             if ($form->isValid()) {
-
-                $contact->populate($form->getData());
+                $contact->exchangeArray($form->getData());
                 $this->getContactTable()->saveContact($contact);
 
                 // Redirect to list of contacts
                 return $this->redirect()->toRoute('contact');
-
             }
         }
 
@@ -48,22 +42,20 @@ class ContactController extends ActionController
 
     public function editAction()
     {
-        $id = (int)$this->getEvent()->getRouteMatch()->getParam('id');
+        $id = (int)$this->params('id');
         if (!$id) {
             return $this->redirect()->toRoute('contact', array('action'=>'add'));
         }
         $contact = $this->getContactTable()->getContact($id);
 
         $form = new ContactForm();
-        $form->setBindOnValidate(false);
         $form->bind($contact);
         $form->get('submit')->setAttribute('value', 'Edit');
         
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setData($request->post());
+            $form->setData($request->getPost());
             if ($form->isValid()) {
-                $form->bindValues();
                 $this->getContactTable()->saveContact($contact);
 
                 // Redirect to list of contacts
@@ -79,36 +71,27 @@ class ContactController extends ActionController
 
     public function deleteAction()
     {
-        $id = (int)$this->getEvent()->getRouteMatch()->getParam('id');
+        $id = (int)$this->params('id');
         if (!$id) {
             return $this->redirect()->toRoute('contact');
         }
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $del = $request->post()->get('del', 'No');
+            $del = $request->getPost()->get('del', 'No');
             if ($del == 'Yes') {
-                $id = (int)$request->post()->get('id');
+                $id = (int)$request->getPost()->get('id');
                 $this->getContactTable()->deleteContact($id);
             }
 
             // Redirect to list of contacts
-            return $this->redirect()->toRoute('default', array(
-                'controller' => 'contact',
-                'action'     => 'index',
-            ));
+            return $this->redirect()->toRoute('contact');
         }
 
         return array(
             'id' => $id,
             'contact' => $this->getContactTable()->getContact($id)
         );
-    }
-
-    public function setContactTable(ContactTable $contactTable)
-    {
-        $this->contactTable = $contactTable;
-        return $this;
     }
 
     public function getContactTable()
@@ -118,5 +101,5 @@ class ContactController extends ActionController
             $this->contactTable = $sm->get('contact-table');
         }
         return $this->contactTable;
-    }
+    }    
 }

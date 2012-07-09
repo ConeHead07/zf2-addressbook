@@ -1,15 +1,11 @@
 <?php
-
 return array(
-
-    // Controllers in this module
-    'controller' => array(
-        'classes' => array(
-            'contact/contact' => 'Contact\Controller\ContactController'
+    'controllers' => array(
+        'invokables' => array(
+            'Contact\Controller\Contact' => 'Contact\Controller\ContactController',
         ),
     ),
-
-    // Routes for this module
+    
     'router' => array(
         'routes' => array(
             'contact' => array(
@@ -21,15 +17,14 @@ return array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'contact/contact',
+                        'controller' => 'Contact\Controller\Contact',
                         'action'     => 'index',
                     ),
                 ),
             ),
         ),
-    ),    
+    ),
 
-    // View setup for this module
     'view_manager' => array(
         'template_path_stack' => array(
             'contact' => __DIR__ . '/../view',

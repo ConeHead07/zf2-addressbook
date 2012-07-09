@@ -2,7 +2,6 @@
 
 namespace Contact;
 
-use Zend\Form\View\HelperLoader as FormHelperLoader;
 use Contact\Model\ContactTable;
 
 class Module
@@ -20,12 +19,7 @@ class Module
             ),
         );
     }
-
-    public function getConfig()
-    {
-        return include __DIR__ . '/config/module.config.php';
-    }
-
+    
     public function getServiceConfiguration()
     {
         return array(
@@ -37,6 +31,10 @@ class Module
                 },
             ),
         );
-    }
+    }    
 
+    public function getConfig()
+    {
+        return include __DIR__ . '/config/module.config.php';
+    }
 }
